@@ -34,9 +34,20 @@ jobs:
         run: |
           zip create_port.zip A01781341/*.js
 
-  dockerize:
+  test:
     runs-on: ubuntu-latest
     needs: package
+    
+    steps:
+      - uses: actions/checkout@v1
+      - name: Run Tests
+        run: |
+          npm install 
+          npm test
+
+  dockerize:
+    runs-on: ubuntu-latest
+    needs: test
 
     steps:
       - uses: actions/checkout@v2
@@ -47,14 +58,33 @@ jobs:
         run: |
           docker run -p 8080:3000 express-app:latest
 
-  test:
+  deploy:
     runs-on: ubuntu-latest
-    needs: dockerize
     
+    name: Deploy to ECR
     steps:
-      - uses: actions/checkout@v1
-      - name: Run Tests
-        run: |
-          npm install 
-          npm test
+      - name: Checkout
+        uses: actions/checkout@v2
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+      
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: express-app-333
+          IMAGE_TAG: latest
+        run: |
+          docker build -f ./Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
