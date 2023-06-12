@@ -33,7 +33,7 @@ jobs:
           npm install 
       - name: Run Tests
         run: |
-          npx test
+          npx jest
 
   package:
     runs-on: ubuntu-latest
