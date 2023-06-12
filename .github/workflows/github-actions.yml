@@ -36,10 +36,10 @@ jobs:
       - uses: actions/checkout@v1
       - name: Build Docker Image
         run: |
-          docker build -t express-app .
+          docker build . -t express-app
       - name: Run docker Image
         run: |
-          docker run -p 8080:3000 978a4d991e49
+          docker run -p express-app
 
   test:
     runs-on: ubuntu-latest
