@@ -33,12 +33,12 @@ jobs:
   dockerize:
     runs-on: ubuntu-latest
     env:
-      context: .
+      context: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v1
       - name: Build Docker Image
         run: |
-          docker build -f ./Dockerfile.txt -t express-app:latest ${{ env.context }}
+          docker build -f $(realpath ${{ env.context }}/A01781341/Dockerfile) -t express-app:latest ${{ env.context }}/A01781341
       - name: Run docker Image
         run: |
           docker run -p 8080:3000 express-app:latest
