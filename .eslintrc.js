@@ -8,6 +8,7 @@ module.exports = {
   extends: 'standard',
   overrides: [
   ],
+  plugins: ['import'],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module'
