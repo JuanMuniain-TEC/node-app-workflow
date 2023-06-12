@@ -39,7 +39,7 @@ jobs:
           docker build . -t express-app
       - name: Run docker Image
         run: |
-          docker run -p express-app
+          docker run -p 8080:3000 express-app
 
   test:
     runs-on: ubuntu-latest
