@@ -33,12 +33,12 @@ jobs:
   dockerize:
     runs-on: ubuntu-latest
     env:
-      context: .
+      context: A01781341
     steps:
       - uses: actions/checkout@v1
       - name: Build Docker Image
         run: |
-          docker build ${{ env.CONTEXT }} -t express-app:latest
+          docker build ${{ env.context }} -t express-app:latest
       - name: Run docker Image
         run: |
           docker run -p 8080:3000 express-app:latest
