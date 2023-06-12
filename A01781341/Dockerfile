@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["node", "A01781341/index.js"]
+CMD ["node", "index.js"]
