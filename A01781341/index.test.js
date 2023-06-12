@@ -5,7 +5,7 @@ describe('GET /', () => {
   it('should respond with "This is my express app"', async () => {
     const response = await request(app).get('/')
     expect(response.status).toBe(200)
-    expect(response.text).toBe('This is my express app.')
+    expect(response.text).toBe('This is my express app')
   })
 })
 
