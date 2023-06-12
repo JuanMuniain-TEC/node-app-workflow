@@ -21,14 +21,7 @@ jobs:
 
       - name: Run EsLint
         run: npx eslint "A01781341/*.js"
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Run Tests
-        run: |
-          npm install 
-          npm test
+
   package:
     runs-on: ubuntu-latest
     steps:
@@ -47,4 +40,13 @@ jobs:
       - name: Run docker Image
         run: |
           docker run -p 8080:3000 978a4d991e49
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Run Tests
+        run: |
+          npm install 
+          npm test
 
