@@ -38,7 +38,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Build Docker Image
         run: |
-          docker build -f $(realpath ${{ env.context }}/A01781341/Dockerfile) -t express-app:latest ${{ env.context }}/A01781341
+          docker build -f $(realpath ${{ env.context }}/Dockerfile) -t express-app:latest ${{ env.context }}/A01781341
       - name: Run docker Image
         run: |
           docker run -p 8080:3000 express-app:latest
