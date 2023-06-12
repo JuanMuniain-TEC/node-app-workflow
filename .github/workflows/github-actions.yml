@@ -40,9 +40,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      # - name: Build Docker Image
-      #   run: |
-      #     docker build -f ./Dockerfile -t express-app:latest .
+      - name: Build Docker Image
+        run: |
+          docker build -f ./Dockerfile -t express-app:latest .
       - name: Run docker Image
         run: |
           docker run -p 8080:3000 express-app:latest
