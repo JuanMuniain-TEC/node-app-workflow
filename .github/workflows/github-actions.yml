@@ -26,9 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Print Directory Contents
+        run: ls A01781341
       - name: Package App
         run: |
-          zip print_name.zip A01781341/*.js
+          zip create_port.zip A01781341/*.js
 
   dockerize:
     runs-on: ubuntu-latest
