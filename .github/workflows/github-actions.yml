@@ -33,7 +33,7 @@ jobs:
   dockerize:
     runs-on: ubuntu-latest
     env:
-      context: A01781341
+      context: ${{ github.workspace }}/A01781341
     steps:
       - uses: actions/checkout@v1
       - name: Build Docker Image
