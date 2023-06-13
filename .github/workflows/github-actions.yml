@@ -33,7 +33,7 @@ jobs:
           npm install 
       - name: Run Tests
         run: |
-          npx jest --detectOpenHandles
+          npx jest --forceExit --detectOpenHandles
 
   package:
     runs-on: ubuntu-latest
